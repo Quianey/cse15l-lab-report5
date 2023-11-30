@@ -5,16 +5,21 @@ Title: Bugging in StringServer
 
 Catagory: Lab Reports
 
-Hi, I'm working on my lab report 2 on Edstem. I don't know what happed in my StringServer.java. Everytime when I 'm using ```/add-message?s=<string>```, it always returns ```404 no found```.
-![image](https://github.com/Quianey/cse15l-lab-report5/assets/147276821/46c715fd-c753-4867-8b2a-3578f809cf5b)
-![image](https://github.com/Quianey/cse15l-lab-report5/assets/147276821/1500e02b-69d1-4abe-8817-af092f49fa1e)
-![image](https://github.com/Quianey/cse15l-lab-report5/assets/147276821/410a3804-69de-454b-8f14-516930635f50)
+Hi, I'm working on my lab report 2 on Edstem. I don't know what happed in my StringServer.java. Everytime when I 'm using ```/add-message?s=<string>```, and then ```/increment```, the next call of ```/add-message?s=<string>``` becomes ```n+2.<string>``` instead of ```n+1.<string>```. 
+![image](https://github.com/Quianey/cse15l-lab-report5/assets/147276821/915db010-a360-4403-96e3-3d17d9eb4243)
+![image](https://github.com/Quianey/cse15l-lab-report5/assets/147276821/117a9428-6896-453a-8755-a63ef2d490db)
+![image](https://github.com/Quianey/cse15l-lab-report5/assets/147276821/3c515d2c-8c5c-4838-9b46-57de635556d3)
+![image](https://github.com/Quianey/cse15l-lab-report5/assets/147276821/2ac3c7cc-60c3-411a-b1dc-e8cfc6e390d2)
 
-I guess there are some bugs in the location of return statement. I think my code actually doesn't go into the if statement of finding path ```/add-message``` and directly return ```404 no found```. 
+
+
+
+
+I guess there are some bugs in ```else if (url.getPath().contains("/add-message")) {```. I think this statement is reached even though I called ```/increment```, which means ```/increment``` and ```/add-message?s=<string>``` are called at the same time. . 
 
 2. A response from a TA asking a leading question or suggesting a command to try (To be clear, you are mimicking a TA here.)
 
-Hi Qianyi, thanks for the question and the screenshot.I believe the issue comes from your if statement instead of return part. Please make sure that your if statement includes exactly ```/add-message```. In your if statement, you should split the query by ```=```. And your ```parameter[0]```
-should be ```s```. 
+Hi Qianyi, thanks for the question and the screenshot.I believe the issue comes from your counter of the method. In your code, the ```/increment``` and ```/add-message?s=<string>``` share the same counter ```num```. Thus, to solve the bug, you need to separate them. One way is to 
+create another counter for ```/add-message```. 
 
 3.Another screenshot/terminal output showing what information the student got from trying that, and a clear description of what the bug is.
